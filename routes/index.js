@@ -16,6 +16,10 @@ router.get("/register", (req, res) => {
 // Register post route
 router.post("/register", (req, res) => {
   var newUser = new User({ username: req.body.username });
+  if (req.body.adminCode === "secretcode123") {
+    // THIS SHOULD BE IN AN ENV VAR
+    newUser.isAdmin = true;
+  }
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
       req.flash("error", err.message);
