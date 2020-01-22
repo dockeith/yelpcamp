@@ -11,6 +11,8 @@ const express = require("express"),
   User = require("./models/user"),
   seedDb = require("./seeds");
 
+app.locals.moment = require("moment");
+
 // Dev env
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -28,7 +30,7 @@ mongoose.set("useFindAndModify", false);
 mongoose
   .connect(process.env.DATABASEURL, {
     useNewUrlParser: true,
-    useCreateIndex: true,
+    useCreateIndex: true
   })
   .then(() => {
     console.log("Connected to DB!");
@@ -47,7 +49,7 @@ app.use(
   require("express-session")({
     secret: "Manchester United is the greatest football club in history.",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
 app.use(passport.initialize());
