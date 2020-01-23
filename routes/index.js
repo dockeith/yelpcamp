@@ -5,18 +5,18 @@ const User = require("../models/user");
 const Campground = require("../models/campground");
 
 // Root route
-router.get("/", (req, res) => {
+router.get("/", (_req, res) => {
   res.render("landing");
 });
 
 // Show register form route
-router.get("/register", (req, res) => {
+router.get("/register", (_req, res) => {
   res.render("register", { page: "register" });
 });
 
 // Register post route
 router.post("/register", (req, res) => {
-  var newUser = new User({
+  const newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -31,7 +31,7 @@ router.post("/register", (req, res) => {
       req.flash("error", err.message);
       res.redirect("/register");
     }
-    passport.authenticate("local")(req, res, function() {
+    passport.authenticate("local")(req, res, () => {
       req.flash("success", "Welcome to YelpCamp " + user.username);
       res.redirect("/campgrounds");
     });
@@ -39,7 +39,7 @@ router.post("/register", (req, res) => {
 });
 
 // Log in form route
-router.get("/login", (req, res) => {
+router.get("/login", (_req, res) => {
   res.render("login", { page: "login" });
 });
 
@@ -50,7 +50,7 @@ router.post(
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
   }),
-  (req, res) => {}
+  (_req, _res) => {}
 );
 
 // Log out route
