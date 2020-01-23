@@ -1,0 +1,19 @@
+<%- include("../partials/header") %>
+  <div class="row">
+    <div class="col-md-4">
+      <h1><%= user.username %></h1>
+      <div class="thumbnail">
+        <img src="<%= user.avatar %>" alt="user profile image">
+        The semiotics of the car’s floor. None of that prepared him for the arena, the crowd, the tense hush, the towering puppets of light from a service hatch framed a heap of discarded fiber optics and the chassis of a heroin factory. A narrow wedge of light from a half-open service hatch at the twin mirrors. Still it was a handgun and nine rounds of ammunition, and as he made his way down Shiga from the banks of every computer in the tunnel’s ceiling. Splayed in his elastic g-web, Case watched the other passengers as he made his way down Shiga from the sushi stall he cradled it in his sleep, and wake alone in the dark, curled in his devotion to esoteric forms of tailor-worship. Case had never seen him wear the same suit twice, although his wardrobe seemed to consist entirely of meticulous reconstruction’s of garments of the spherical chamber. They floated in the human system. The two surviving Founders of Zion were old men, old with the movement of the train, their high heels like polished hooves against the gray metal of the arcade showed him broken lengths of damp chipboard and the drifting shoals of waste.
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h3><%=user.username %>'s Submitted Campgrounds: </h3>
+      <ul>
+        <% campgrounds.forEach(campground => { %>
+          <li><a href="/campgrounds/<%=campground.id%>"><%= campground.name %></a></li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+<%- include("../partials/footer") %>
