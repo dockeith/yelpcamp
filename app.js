@@ -59,7 +59,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Send user object to all routes
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
@@ -72,6 +72,6 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // Start server
-app.listen(process.env.PORT || 3000, process.env.IP, function() {
+app.listen(process.env.PORT || 3000, process.env.IP, () => {
   console.log("YelpCamp has started!");
 });
