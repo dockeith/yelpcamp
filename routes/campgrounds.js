@@ -19,22 +19,22 @@ router.get("/", (req, res) => {
 
 // Create route
 router.post("/", middleware.isLoggedIn, (req, res) => {
-  var name = req.body.name;
-  var price = req.body.price;
-  var image = req.body.image;
-  var desc = req.body.description;
-  var author = {
+  const name = req.body.name;
+  const price = req.body.price;
+  const image = req.body.image;
+  const desc = req.body.description;
+  const author = {
     id: req.user._id,
     username: req.user.username
   };
-  var newCampground = {
+  const newCampground = {
     name: name,
     price: price,
     image: image,
     description: desc,
     author: author
   };
-  Campground.create(newCampground, (err, newlyCreated) => {
+  Campground.create(newCampground, err => {
     if (err) {
       console.log(err);
     } else {
@@ -44,7 +44,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 });
 
 // New route
-router.get("/new", middleware.isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (_req, res) => {
   res.render("campgrounds/new");
 });
 
@@ -52,7 +52,7 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
   Campground.findById(req.params.id)
     .populate("comments")
-    .exec(function(err, campground) {
+    .exec((err, campground) => {
       if (err) {
         console.log(err);
       } else {
@@ -75,18 +75,14 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) => {
 
 // Update campground route
 router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
-  Campground.findByIdAndUpdate(
-    req.params.id,
-    req.body.campground,
-    (err, updatedCampground) => {
-      if (err) {
-        req.flash("error", "Campground not found");
-        res.redirect("/campgrounds");
-      } else {
-        res.redirect("/campgrounds/" + req.params.id);
-      }
+  Campground.findByIdAndUpdate(req.params.id, req.body.campground, err => {
+    if (err) {
+      req.flash("error", "Campground not found");
+      res.redirect("/campgrounds");
+    } else {
+      res.redirect("/campgrounds/" + req.params.id);
     }
-  );
+  });
 });
 
 // Destroy campground route
